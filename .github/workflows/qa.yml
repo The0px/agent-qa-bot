@@ -5,6 +5,10 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   qa:
     runs-on: ubuntu-latest
@@ -13,9 +17,18 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: bun add -g agent-browser && agent-browser install --with-deps
-      - run: bun run qa
-      - name: Seeded bug must be caught
-        run: "! bun run qa:bug"
+      - name: Run the QA suite
+        id: qa
+        run: bun run qa
+      - name: Seeded bug must be caught, with a video repro
+        run: |
+          ! bun run qa:bug
+          test -s results/videos/checkout-total-respects-quantities.webm
+      - name: Post the verdict on the PR
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr comment ${{ github.event.pull_request.number }} --body-file results/latest.md --edit-last --create-if-none
       - uses: actions/upload-artifact@v4
         if: always()
         with:

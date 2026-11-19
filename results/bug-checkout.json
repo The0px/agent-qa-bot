@@ -1,42 +1,42 @@
 {
   "summary": {
-    "date": "2026-11-19T18:41:57.724Z",
+    "date": "2026-11-19T19:18:53.349Z",
     "bug": "checkout",
     "passed": 6,
     "total": 7,
     "actions": 37,
-    "p50_ms": 9,
-    "p95_ms": 107
+    "p50_ms": 10,
+    "p95_ms": 108
   },
   "results": [
     {
       "name": "Signup rejects an invalid email",
       "ok": true,
-      "ms": 1458,
+      "ms": 1613,
       "steps": [
         {
           "label": "open",
-          "ms": 1420,
+          "ms": 1547,
           "ok": true
         },
         {
           "label": "fill name",
-          "ms": 12,
+          "ms": 17,
           "ok": true
         },
         {
           "label": "fill bad email",
-          "ms": 6,
+          "ms": 10,
           "ok": true
         },
         {
           "label": "submit",
-          "ms": 16,
+          "ms": 32,
           "ok": true
         },
         {
           "label": "error shown",
-          "ms": 4,
+          "ms": 7,
           "ok": true
         }
       ]
@@ -44,36 +44,36 @@
     {
       "name": "Signup succeeds on the Pro plan",
       "ok": true,
-      "ms": 49,
+      "ms": 73,
       "steps": [
         {
           "label": "open",
-          "ms": 22,
+          "ms": 36,
           "ok": true
         },
         {
           "label": "fill name",
-          "ms": 6,
+          "ms": 7,
           "ok": true
         },
         {
           "label": "fill email",
-          "ms": 5,
-          "ok": true
-        },
-        {
-          "label": "pick plan",
-          "ms": 4,
-          "ok": true
-        },
-        {
-          "label": "submit",
           "ms": 8,
           "ok": true
         },
         {
+          "label": "pick plan",
+          "ms": 6,
+          "ok": true
+        },
+        {
+          "label": "submit",
+          "ms": 11,
+          "ok": true
+        },
+        {
           "label": "welcome shown",
-          "ms": 4,
+          "ms": 5,
           "ok": true
         }
       ]
@@ -81,16 +81,48 @@
     {
       "name": "Login with wrong password shows an error",
       "ok": true,
-      "ms": 151,
+      "ms": 170,
       "steps": [
         {
           "label": "open",
-          "ms": 19,
+          "ms": 26,
           "ok": true
         },
         {
           "label": "fill email",
-          "ms": 5,
+          "ms": 7,
+          "ok": true
+        },
+        {
+          "label": "fill password",
+          "ms": 9,
+          "ok": true
+        },
+        {
+          "label": "submit",
+          "ms": 20,
+          "ok": true
+        },
+        {
+          "label": "error shown",
+          "ms": 108,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "Login sets a session and reaches the account page",
+      "ok": true,
+      "ms": 160,
+      "steps": [
+        {
+          "label": "open",
+          "ms": 17,
+          "ok": true
+        },
+        {
+          "label": "fill email",
+          "ms": 9,
           "ok": true
         },
         {
@@ -100,49 +132,17 @@
         },
         {
           "label": "submit",
-          "ms": 14,
-          "ok": true
-        },
-        {
-          "label": "error shown",
-          "ms": 106,
-          "ok": true
-        }
-      ]
-    },
-    {
-      "name": "Login sets a session and reaches the account page",
-      "ok": true,
-      "ms": 159,
-      "steps": [
-        {
-          "label": "open",
-          "ms": 15,
-          "ok": true
-        },
-        {
-          "label": "fill email",
-          "ms": 5,
-          "ok": true
-        },
-        {
-          "label": "fill password",
           "ms": 9,
-          "ok": true
-        },
-        {
-          "label": "submit",
-          "ms": 14,
           "ok": true
         },
         {
           "label": "on account",
-          "ms": 107,
+          "ms": 108,
           "ok": true
         },
         {
           "label": "signed in",
-          "ms": 9,
+          "ms": 10,
           "ok": true
         }
       ]
@@ -150,7 +150,41 @@
     {
       "name": "Checkout total respects quantities",
       "ok": false,
-      "ms": 160,
+      "ms": 174,
+      "steps": [
+        {
+          "label": "open",
+          "ms": 37,
+          "ok": true
+        },
+        {
+          "label": "set qty 3",
+          "ms": 7,
+          "ok": true
+        },
+        {
+          "label": "checkout",
+          "ms": 20,
+          "ok": true
+        },
+        {
+          "label": "total computed",
+          "ms": 105,
+          "ok": true
+        },
+        {
+          "label": "total is $67.50",
+          "ms": 5,
+          "ok": false,
+          "detail": "expected \"$67.50\", got \"$42.50\""
+        }
+      ],
+      "video": "results/videos/checkout-total-respects-quantities.webm"
+    },
+    {
+      "name": "Confirm dialog guards a destructive action",
+      "ok": true,
+      "ms": 73,
       "steps": [
         {
           "label": "open",
@@ -158,51 +192,18 @@
           "ok": true
         },
         {
-          "label": "set qty 3",
-          "ms": 5,
-          "ok": true
-        },
-        {
-          "label": "checkout",
-          "ms": 16,
-          "ok": true
-        },
-        {
-          "label": "total computed",
-          "ms": 106,
-          "ok": true
-        },
-        {
-          "label": "total is $67.50",
-          "ms": 4,
-          "ok": false,
-          "detail": "expected \"$67.50\", got \"$42.50\""
-        }
-      ]
-    },
-    {
-      "name": "Confirm dialog guards a destructive action",
-      "ok": true,
-      "ms": 53,
-      "steps": [
-        {
-          "label": "open",
-          "ms": 28,
-          "ok": true
-        },
-        {
           "label": "click delete",
-          "ms": 11,
+          "ms": 24,
           "ok": true
         },
         {
           "label": "dismiss",
-          "ms": 10,
+          "ms": 14,
           "ok": true
         },
         {
           "label": "still kept",
-          "ms": 4,
+          "ms": 6,
           "ok": true
         }
       ]
@@ -210,31 +211,31 @@
     {
       "name": "Form inside an iframe",
       "ok": true,
-      "ms": 61,
+      "ms": 56,
       "steps": [
         {
           "label": "open",
-          "ms": 21,
+          "ms": 26,
           "ok": true
         },
         {
           "label": "enter frame",
-          "ms": 4,
+          "ms": 7,
           "ok": true
         },
         {
           "label": "fill email",
-          "ms": 5,
+          "ms": 6,
           "ok": true
         },
         {
           "label": "subscribe",
-          "ms": 22,
+          "ms": 7,
           "ok": true
         },
         {
           "label": "confirmed",
-          "ms": 5,
+          "ms": 6,
           "ok": true
         },
         {

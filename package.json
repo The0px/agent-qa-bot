@@ -6,7 +6,7 @@
   "scripts": {
     "lab": "bun lab/server.ts",
     "qa": "bun bench/run.ts",
-    "qa:bug": "bun bench/run.ts --bug checkout"
+    "qa:bug": "bun bench/run.ts --bug checkout --video"
   },
   "devDependencies": {
     "@types/bun": "1.2.19"

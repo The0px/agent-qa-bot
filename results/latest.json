@@ -1,42 +1,42 @@
 {
   "summary": {
-    "date": "2026-11-19T18:41:55.494Z",
+    "date": "2026-11-19T19:19:13.591Z",
     "bug": null,
     "passed": 7,
     "total": 7,
     "actions": 37,
     "p50_ms": 10,
-    "p95_ms": 107
+    "p95_ms": 109
   },
   "results": [
     {
       "name": "Signup rejects an invalid email",
       "ok": true,
-      "ms": 994,
+      "ms": 1056,
       "steps": [
         {
           "label": "open",
-          "ms": 952,
+          "ms": 1004,
           "ok": true
         },
         {
           "label": "fill name",
-          "ms": 10,
+          "ms": 19,
           "ok": true
         },
         {
           "label": "fill bad email",
-          "ms": 7,
+          "ms": 10,
           "ok": true
         },
         {
           "label": "submit",
-          "ms": 20,
+          "ms": 17,
           "ok": true
         },
         {
           "label": "error shown",
-          "ms": 5,
+          "ms": 6,
           "ok": true
         }
       ]
@@ -44,16 +44,16 @@
     {
       "name": "Signup succeeds on the Pro plan",
       "ok": true,
-      "ms": 64,
+      "ms": 61,
       "steps": [
         {
           "label": "open",
-          "ms": 32,
+          "ms": 27,
           "ok": true
         },
         {
           "label": "fill name",
-          "ms": 5,
+          "ms": 7,
           "ok": true
         },
         {
@@ -63,7 +63,7 @@
         },
         {
           "label": "pick plan",
-          "ms": 5,
+          "ms": 6,
           "ok": true
         },
         {
@@ -73,7 +73,7 @@
         },
         {
           "label": "welcome shown",
-          "ms": 6,
+          "ms": 5,
           "ok": true
         }
       ]
@@ -81,11 +81,11 @@
     {
       "name": "Login with wrong password shows an error",
       "ok": true,
-      "ms": 166,
+      "ms": 171,
       "steps": [
         {
           "label": "open",
-          "ms": 25,
+          "ms": 24,
           "ok": true
         },
         {
@@ -95,17 +95,17 @@
         },
         {
           "label": "fill password",
-          "ms": 12,
+          "ms": 7,
           "ok": true
         },
         {
           "label": "submit",
-          "ms": 16,
+          "ms": 24,
           "ok": true
         },
         {
           "label": "error shown",
-          "ms": 106,
+          "ms": 109,
           "ok": true
         }
       ]
@@ -113,36 +113,36 @@
     {
       "name": "Login sets a session and reaches the account page",
       "ok": true,
-      "ms": 161,
+      "ms": 175,
       "steps": [
         {
           "label": "open",
-          "ms": 16,
+          "ms": 20,
           "ok": true
         },
         {
           "label": "fill email",
-          "ms": 6,
-          "ok": true
-        },
-        {
-          "label": "fill password",
           "ms": 7,
           "ok": true
         },
         {
+          "label": "fill password",
+          "ms": 8,
+          "ok": true
+        },
+        {
           "label": "submit",
-          "ms": 16,
+          "ms": 22,
           "ok": true
         },
         {
           "label": "on account",
-          "ms": 107,
+          "ms": 108,
           "ok": true
         },
         {
           "label": "signed in",
-          "ms": 9,
+          "ms": 10,
           "ok": true
         }
       ]
@@ -150,21 +150,21 @@
     {
       "name": "Checkout total respects quantities",
       "ok": true,
-      "ms": 161,
+      "ms": 181,
       "steps": [
         {
           "label": "open",
-          "ms": 26,
+          "ms": 34,
           "ok": true
         },
         {
           "label": "set qty 3",
-          "ms": 5,
+          "ms": 9,
           "ok": true
         },
         {
           "label": "checkout",
-          "ms": 19,
+          "ms": 23,
           "ok": true
         },
         {
@@ -174,7 +174,7 @@
         },
         {
           "label": "total is $67.50",
-          "ms": 4,
+          "ms": 8,
           "ok": true
         }
       ]
@@ -182,16 +182,16 @@
     {
       "name": "Confirm dialog guards a destructive action",
       "ok": true,
-      "ms": 53,
+      "ms": 69,
       "steps": [
         {
           "label": "open",
-          "ms": 21,
+          "ms": 33,
           "ok": true
         },
         {
           "label": "click delete",
-          "ms": 18,
+          "ms": 20,
           "ok": true
         },
         {
@@ -201,7 +201,7 @@
         },
         {
           "label": "still kept",
-          "ms": 4,
+          "ms": 6,
           "ok": true
         }
       ]
@@ -209,21 +209,21 @@
     {
       "name": "Form inside an iframe",
       "ok": true,
-      "ms": 61,
+      "ms": 77,
       "steps": [
         {
           "label": "open",
-          "ms": 23,
+          "ms": 32,
           "ok": true
         },
         {
           "label": "enter frame",
-          "ms": 4,
+          "ms": 8,
           "ok": true
         },
         {
           "label": "fill email",
-          "ms": 5,
+          "ms": 6,
           "ok": true
         },
         {
@@ -233,7 +233,7 @@
         },
         {
           "label": "confirmed",
-          "ms": 4,
+          "ms": 6,
           "ok": true
         },
         {

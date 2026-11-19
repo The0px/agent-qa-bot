@@ -6,7 +6,12 @@ import { scenarios, type Step } from "./scenarios";
 
 const { values } = parseArgs({
   args: Bun.argv.slice(2),
-  options: { bug: { type: "string" }, base: { type: "string" }, port: { type: "string", default: "4790" } },
+  options: {
+    bug: { type: "string" },
+    base: { type: "string" },
+    port: { type: "string", default: "4790" },
+    video: { type: "boolean", default: false },
+  },
 });
 
 if (values.bug) process.env.BUG = values.bug;
@@ -15,7 +20,27 @@ const base = values.base ?? (await import("../lab/server")).server.url.origin;
 const session = `qa-bench-${process.pid}`;
 
 type StepResult = { label: string; ms: number; ok: boolean; detail?: string };
-type ScenarioResult = { name: string; ok: boolean; ms: number; steps: StepResult[] };
+type ScenarioResult = { name: string; ok: boolean; ms: number; steps: StepResult[]; video?: string };
+
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+// Replays a failing journey on camera so the bug report carries a repro anyone can watch.
+async function recordRepro(sc: (typeof scenarios)[number]) {
+  await mkdir("results/videos", { recursive: true });
+  const path = `results/videos/${slug(sc.name)}.webm`;
+  const first = sc.steps[0].cmd;
+  const url = first[0] === "open" ? first[1].replace("{base}", base) : undefined;
+  await ab(["record", "start", path, ...(url ? [url] : [])]);
+  // Steps take a few ms; the pauses make the replay watchable by a human.
+  await ab(["wait", "800"]);
+  for (const step of url ? sc.steps.slice(1) : sc.steps) {
+    await runStep(step);
+    await ab(["wait", "800"]);
+  }
+  await ab(["wait", "1500"]);
+  await ab(["record", "stop"]);
+  return path;
+}
 
 async function ab(args: string[]) {
   const proc = Bun.spawn(["agent-browser", "--session", session, ...args], { stdout: "pipe", stderr: "pipe" });
@@ -42,7 +67,8 @@ for (const sc of scenarios) {
     if (!r.ok) break;
   }
   const ok = steps.length === sc.steps.length && steps.every((s) => s.ok);
-  results.push({ name: sc.name, ok, ms: steps.reduce((a, s) => a + s.ms, 0), steps });
+  const video = !ok && values.video ? await recordRepro(sc) : undefined;
+  results.push({ name: sc.name, ok, ms: steps.reduce((a, s) => a + s.ms, 0), steps, video });
   console.log(`${ok ? "PASS" : "FAIL"}  ${sc.name}${ok ? "" : `  -> ${steps.at(-1)?.label}: ${steps.at(-1)?.detail}`}`);
 }
 await ab(["close"]);
@@ -64,11 +90,13 @@ const md = [
   "",
   `**${summary.passed}/${summary.total} scenarios passed** · ${summary.actions} actions · p50 ${summary.p50_ms} ms · p95 ${summary.p95_ms} ms${summary.bug ? ` · seeded bug: \`${summary.bug}\`` : ""}`,
   "",
-  "| Scenario | Result | Time | Failure |",
-  "|---|---|---|---|",
+  "| Scenario | Result | Time | Failure | Repro |",
+  "|---|---|---|---|---|",
   ...results.map((r) => {
     const f = r.steps.find((s) => !s.ok);
-    return `| ${r.name} | ${r.ok ? "pass" : "**fail**"} | ${r.ms} ms | ${f ? `${f.label}: ${f.detail?.replaceAll("|", "\\|")}` : ""} |`;
+    const failure = f ? `${f.label}: ${f.detail?.replaceAll("|", "\\|")}` : "";
+    const repro = r.video ? `[video](${r.video.replace("results/", "")})` : "";
+    return `| ${r.name} | ${r.ok ? "pass" : "**fail**"} | ${r.ms} ms | ${failure} | ${repro} |`;
   }),
   "",
 ].join("\n");
