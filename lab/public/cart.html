@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cart</title>
+<link rel="stylesheet" href="/lab.css">
+<script type="module" src="/lab.js"></script>
+</head>
+<body>
+<main>
+  <h1>Cart</h1>
+  <table data-lab="cart">
+    <thead><tr><th>Item</th><th>Price</th><th>Qty</th></tr></thead>
+    <tbody>
+      <tr data-price="12.50"><td>Keyboard</td><td>$12.50</td><td><input aria-label="Keyboard quantity" type="number" min="1" value="1"></td></tr>
+      <tr data-price="30"><td>Monitor arm</td><td>$30.00</td><td><input aria-label="Monitor arm quantity" type="number" min="1" value="1"></td></tr>
+    </tbody>
+  </table>
+  <button type="button" data-lab="checkout">Checkout</button>
+  <p role="status" aria-live="polite">Total: <span id="total">—</span></p>
+</main>
+</body>
+</html>

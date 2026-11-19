@@ -1,0 +1,14 @@
+{
+  "name": "agent-qa-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lab": "bun lab/server.ts",
+    "qa": "bun bench/run.ts",
+    "qa:bug": "bun bench/run.ts --bug checkout"
+  },
+  "devDependencies": {
+    "@types/bun": "1.2.19"
+  }
+}
